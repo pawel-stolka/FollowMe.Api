@@ -9,6 +9,7 @@ using FollowMe.Core.Domain;
 using FollowMe.Infrastructure.DTO;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
+using FollowMe.Infrastructure.Commands.Category;
 
 namespace FollowMe.Api.Controllers
 {
@@ -22,37 +23,21 @@ namespace FollowMe.Api.Controllers
             _categoryService = new CategoryService(_categoryRepo);
         }
 
-        //public IEnumerable<CategoryDto> GetAllCategories()
-        //    =>_categoryService.GetAll();
+        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
+            => await _categoryService.GetAllAsync();
 
-        //[HttpGet]
-        //public CategoryDto Get(string name)
-        //{
-        //    var category = GetAllCategories()
-        //        .FirstOrDefault(c => c.Name == name);
+        public async Task Post([FromBody]CreateCategory request)
+        {
+            try
+            {
+                await _categoryService.RegisterAsync(request.Name, request.Description);
+            }
+            catch (Exception ex)
+            {
+                Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
 
-        //    return category;
-        //}
-
-
-        public async Task<IEnumerable<CategoryDto>> GetAsync()
-            //    => GetAllCategories().ToList();
-            => await _categoryService.GetAllAsync();//.ToList();
-
-        //[HttpGet]
-        //public IEnumerable<CategoryDto> Get()
-        //    => GetAllCategories();
-
-        //public IHttpActionResult GetCategory(string name)
-        //{
-        //    var category = GetAllCategories()
-        //        .FirstOrDefault(c => c.Name == name);
-
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(category);
-        //}
+            Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

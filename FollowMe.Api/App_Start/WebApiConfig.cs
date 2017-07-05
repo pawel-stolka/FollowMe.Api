@@ -31,7 +31,7 @@ namespace FollowMe.Api
             config.Routes.MapHttpRoute(
                 name: "TestApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { controller = "test", id = RouteParameter.Optional }
+                defaults: new { controller = "categories", id = RouteParameter.Optional }
             );
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
