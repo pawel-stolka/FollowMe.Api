@@ -20,7 +20,7 @@ namespace FollowMe.WebClient.Controllers
 
         public ActionResult Index()
         {
-            var data = _categoryService.GetAll();
+            var data = _categoryService.GetAllAsync();
             return View(data);
         }
 

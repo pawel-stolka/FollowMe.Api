@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FollowMe.Core.Domain;
 using FollowMe.Core.Repositories;
 
@@ -17,22 +18,23 @@ namespace FollowMe.Infrastructure.Repositories
             new Category("Inne", "Pozostała aktywność")
         };
 
-        public ICategory Get(Guid id)
-            => _categories.SingleOrDefault(x => x.Id == id);
+        public async Task<ICategory> GetAsync(Guid id)
+            //=> _categories.SingleOrDefault(x => x.Id == id);
+            => await Task.FromResult(_categories.SingleOrDefault(x => x.Id == id));
 
-        public ICategory Get(string name)
-            => _categories.SingleOrDefault(x => x.Name == name);
+        public async Task<ICategory> GetAsync(string name)
+            => await Task.FromResult(_categories.SingleOrDefault(x => x.Name == name));
 
 
-        public IEnumerable<ICategory> GetAll()
-            => _categories;
+        public async Task<IEnumerable<ICategory>> GetAllAsync()
+            => await Task.FromResult(_categories);
 
-        public void Add(ICategory category)
+        public async Task AddAsync(ICategory category)
         {
-            _categories.Add(category);
+             await Task.FromResult(_categories.Add(category));
         }
 
-        public void Update(ICategory category)
+        public async Task UpdateAsync(ICategory category)
         {
             //if (_categories.Contains(category))
             //{
@@ -42,9 +44,9 @@ namespace FollowMe.Infrastructure.Repositories
             throw new NotImplementedException("todo...");
         }
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            var category = Get(id);
+            var category = await GetAsync(id);
             _categories.Remove(category);
         }
     }

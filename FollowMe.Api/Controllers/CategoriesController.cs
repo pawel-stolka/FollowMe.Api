@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using FollowMe.Core.Domain;
 using FollowMe.Infrastructure.DTO;
@@ -34,9 +35,9 @@ namespace FollowMe.Api.Controllers
         //}
 
 
-        public object Get()
+        public async Task<IEnumerable<CategoryDto>> GetAsync()
             //    => GetAllCategories().ToList();
-            => _categoryService.GetAll();//.ToList();
+            => await _categoryService.GetAllAsync();//.ToList();
 
         //[HttpGet]
         //public IEnumerable<CategoryDto> Get()

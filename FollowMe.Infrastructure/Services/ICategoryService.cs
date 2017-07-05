@@ -10,9 +10,9 @@ namespace FollowMe.Infrastructure.Services
 {
     public interface ICategoryService
     {
-        CategoryDto Get(Guid id);
-        CategoryDto Get(string name);
-        IEnumerable<CategoryDto> GetAll(); 
-        void Register(string name, string description);
+        Task<CategoryDto> GetAsync(Guid id);
+        Task<CategoryDto> GetAsync(string name);
+        Task<IEnumerable<CategoryDto>> GetAllAsync(); 
+        Task RegisterAsync(string name, string description);
     }
 }

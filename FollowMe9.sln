@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FollowMe.Api", "FollowMe.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FollowMe.WebClient", "FollowMe.WebClient\FollowMe.WebClient.csproj", "{0535E1CF-03FF-4260-86B7-05B482CFF26D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FollowMe.ConsoleClientApp", "FollowMe.ConsoleClientApp\FollowMe.ConsoleClientApp.csproj", "{EAA59BA9-1AB8-4E9E-A1D2-33DCCF99EA23}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{0535E1CF-03FF-4260-86B7-05B482CFF26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0535E1CF-03FF-4260-86B7-05B482CFF26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0535E1CF-03FF-4260-86B7-05B482CFF26D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAA59BA9-1AB8-4E9E-A1D2-33DCCF99EA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAA59BA9-1AB8-4E9E-A1D2-33DCCF99EA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAA59BA9-1AB8-4E9E-A1D2-33DCCF99EA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAA59BA9-1AB8-4E9E-A1D2-33DCCF99EA23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

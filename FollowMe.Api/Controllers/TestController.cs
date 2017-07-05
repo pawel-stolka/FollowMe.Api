@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using FollowMe.Infrastructure.Commands.Category;
 using FollowMe.Infrastructure.DTO;
@@ -20,22 +21,23 @@ namespace FollowMe.Api.Controllers
             _categoryService = new CategoryService(_categoryRepo);
         }
 
-        public IEnumerable<CategoryDto> Get()//int id)
+        public async Task<IEnumerable<CategoryDto>> Get()//int id)
         {
-            return _categoryService.GetAll().ToList();
+            return await _categoryService.GetAllAsync();
         }
 
-        public object Post([FromBody]CreateCategory request)
+        public async Task Post([FromBody]CreateCategory request)
         {
             try
             {
-                _categoryService.Register(request.Name, request.Description);
+                await _categoryService.RegisterAsync(request.Name, request.Description);
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
-            return Request.CreateResponse(HttpStatusCode.OK);
+
+            Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

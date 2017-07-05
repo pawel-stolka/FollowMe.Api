@@ -18,15 +18,15 @@ namespace FollowMe.Infrastructure.Services
             _categoryRepository = categoryRepository;
         }
 
-        public CategoryDto Get(Guid id)
+        public async Task<CategoryDto> GetAsync(Guid id)
         {
-            var category = _categoryRepository.Get(id);
-            return Get(category.Name);
+            var category = await _categoryRepository.GetAsync(id);
+            return await GetAsync(category.Name);
         }
 
-        public CategoryDto Get(string name)
+        public async Task<CategoryDto> GetAsync(string name)
         {
-            var category = _categoryRepository.Get(name);
+            var category = await _categoryRepository.GetAsync(name);
             return new CategoryDto
             {
                 Id = category.Id,
@@ -35,34 +35,40 @@ namespace FollowMe.Infrastructure.Services
             };
         }
 
-        public IEnumerable<CategoryDto> GetAll()
+        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
         {
-            var _categories = _categoryRepository.GetAll();
+            var _categories = await _categoryRepository.GetAllAsync();
 
-            var ret = new List<CategoryDto>();
-            foreach (var category in _categories)
+            //foreach (var category in _categories)
+            //{
+            //    ret.Add(
+            //        new CategoryDto
+            //        {
+            //            Id = category.Id,
+            //            Name = category.Name,
+            //            Description = category.Description
+            //        });
+            //}
+            //return ret;
+
+            return _categories.Select(category => new CategoryDto
             {
-                ret.Add(
-                    new CategoryDto
-                    {
-                        Id = category.Id,
-                        Name = category.Name,
-                        Description = category.Description
-                    });
-            }
-            return ret;
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description
+            }).ToList();
         }
 
-        public void Register(string name, string description)
+        public async Task RegisterAsync(string name, string description)
         {
-            var category = _categoryRepository.Get(name);
+            var category = await _categoryRepository.GetAsync(name);
             if (category != null)
             {
                 throw new Exception($"Category with name '{name}' already exists.");
             }
 
             category = new Category(name, description);
-            _categoryRepository.Add(category);
+            await  _categoryRepository.AddAsync(category);
         }
     }
 }
