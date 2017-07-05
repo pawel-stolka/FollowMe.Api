@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<form id="addCategoryForm" method="post">
+    <h3>Create a new Category</h3>
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" name="name"/>
+    </p>
+    <p>
+        <label for="description">Description:</label>
+        <input type="text" name="description"/>
+    </p>
+    <input type="button" id="addCategory" value="Save"/>
+</form>
+
+    <script type="text/javascript">
+        $('#addCategory').click(function () {
+            $.post("http://localhost:55390/api/",
+                  $("#addCategoryForm").serialize(),
+                  //function (value) {
+                  //    $('#contacts').append('<li>' + value.Name + '</li>');
+                  //},
+                  "json"
+            );
+        });
+
+    </script>
+</body>
+</html>
