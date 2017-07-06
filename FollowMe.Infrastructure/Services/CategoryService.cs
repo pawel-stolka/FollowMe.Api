@@ -69,7 +69,7 @@ namespace FollowMe.Infrastructure.Services
                 throw new Exception($"Category with name '{name}' already exists.");
             }
 
-            //category = new Category(name, description);
+            category = new Category(name, description);
             //logger.Log(LogLevel.Info, "RegisterAsync =>    Category:");
             //logger.Log(LogLevel.Info, "RegisterAsync =>      - Id: " + category.Id);
             //logger.Log(LogLevel.Info, "RegisterAsync =>      - Name: " + category.Name);
