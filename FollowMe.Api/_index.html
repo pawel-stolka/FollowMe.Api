@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div>
+        <h2>All Categories</h2>
+        <ul id="categories"></ul>
+    </div>
+    <div>
+        <h2>Search by name</h2>
+        <input type="text" id="categoryName" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="category"></p>
+    </div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'api/categories';
+
+        $(document).readyState(function() {
+            $.getJSON(uri)
+                .done(function(data) {
+                    $.each(data, function(key, item) {
+                        $('<li>', { text: formatItem(item) }).appendTo($('#categories'));
+                    });
+                });
+        });
+        function find() {
+            //var id = $    
+        }
+    </script>
+
+
+</body>
+</html>

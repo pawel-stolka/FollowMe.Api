@@ -6,55 +6,43 @@
     <script src="jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <h2>Example API usage</h2>
-    <input type="button" id="getCategories" value="Get" />
-    <div id="getList"></div>
+<h2>Example API Usage</h2>
+<form id="addCategoryForm" method="post">
+    <h3>Create a new Category</h3>
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" name="name"/>
+    </p>
+    <p>
+        <label for="description">Description:</label>
+        <input type="text" name="description"/>
+    </p>
+    <input type="button" id="addCategory" value="Save"/>
+</form>
 
-    <!--<form id="addCategoryForm" method="post">
-        <h3>Create a new Category</h3>
-        <p>
-            <label for="name">Name:</label>
-            <input type="text" name="name" />
-        </p>
-        <p>
-            <label for="description">Description:</label>
-            <input type="text" name="description" />
-        </p>
-        <input type="button" id="addCategory" value="Save" />
-    </form>-->
+<script type="text/javascript">
+    var url = "http://localhost:55390/api/";
 
-    <script type="text/javascript">
-        var url = "http://localhost:55390/api/";
-
-        $('#getCategories').click(getFunc);
-
-        var getFunc = $.getJSON(url, function (data) {
-            var items = [];
-            $.each(data, function (key, val) {
-                //items.push("<li id='" + key + "'>" + val + "</li>");
-                //console.log(key);
-                console.log(val);
-                $("#getList").append("<li id='" + key + "'>" + val.Name + " - " + val.Description + "</li>");//val.Name);
-                //$("#getList").append("<li id='" + key + "'>" + val.items + "</li>"); //items.Id);
-            });
-            //$("#getList").append("<li id='" + key + "'>" + val.items.Id + "</li>"); //items.Id);
-
-            //$("<ul/>", {
-            //    "class": "my-new-list",
-            //    html: items.join("")
-            //}).appendTo("#getList");
+    $('#getCategories').click(getFunc);
+    var getFunc = $.getJSON(url, function (data) {
+        var items = [];
+        $.each(data, function (key, val) {
+            console.log(val);
+            $("#getList").append("<li id='" + key + "'>" + val.Name + " - " + val.Description + "</li>");//val.Name);
         });
 
-        $('#addCategory').click(function () {
-            $.post(url,
-                $("#addCategoryForm").serialize(),
-                //function (value) {
-                //    $('#contacts').append('<li>' + value.Name + '</li>');
-                //},
-                "json"
-            );
-        });
 
-    </script>
+
+    $('#addCategory').click(function() {
+        $.post("http://localhost:55390/api/",
+            $("#addCategoryForm").serialize(),
+            //function (value) {
+            //    $('#contacts').append('<li>' + value.Name + '</li>');
+            //},
+            "json"
+        );
+    });
+
+</script>
 </body>
 </html>

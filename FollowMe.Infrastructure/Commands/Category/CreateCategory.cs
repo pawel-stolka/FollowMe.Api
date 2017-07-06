@@ -12,9 +12,9 @@ namespace FollowMe.Infrastructure.Commands.Category
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public CreateCategory()
-        {
+        //public CreateCategory()
+        //{
             
-        }
+        //}
     }
 }

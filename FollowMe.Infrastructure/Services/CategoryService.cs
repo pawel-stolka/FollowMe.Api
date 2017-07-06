@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using FollowMe.Core.Domain;
 using FollowMe.Core.Repositories;
 using FollowMe.Infrastructure.DTO;
+using NLog;
 
 namespace FollowMe.Infrastructure.Services
 {
     public class CategoryService : ICategoryService
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService(ICategoryRepository categoryRepository)
@@ -67,7 +69,11 @@ namespace FollowMe.Infrastructure.Services
                 throw new Exception($"Category with name '{name}' already exists.");
             }
 
-            category = new Category(name, description);
+            //category = new Category(name, description);
+            //logger.Log(LogLevel.Info, "RegisterAsync =>    Category:");
+            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Id: " + category.Id);
+            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Name: " + category.Name);
+            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Description: " + category.Description);
             await  _categoryRepository.AddAsync(category);
         }
     }
