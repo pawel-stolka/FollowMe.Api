@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using FollowMe.Core.Domain;
+using FollowMe.Infrastructure.Commands;
 using FollowMe.Infrastructure.DTO;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
@@ -15,30 +16,22 @@ namespace FollowMe.Api.Controllers
 {
     public class CategoriesController : ApiController
     {
-        private ICategoryService _categoryService;
-        
-        public CategoriesController(ICategoryService categoryService)
+        private readonly ICategoryService _categoryService;
+        private readonly ICommandDispatcher _commandDispatcher;
+
+        public CategoriesController(ICategoryService categoryService, ICommandDispatcher commandDispatcher)
         {
             _categoryService = categoryService;
-            //var _categoryRepo = new InMemoryCategoryRepo();
-            //_categoryService = new CategoryService(_categoryRepo);
+            _commandDispatcher = commandDispatcher;
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
             => await _categoryService.GetAllAsync();
 
-        public async Task Post([FromBody]CreateCategory request)
-        {
-            try
-            {
-                await _categoryService.RegisterAsync(request.Name, request.Description);
-            }
-            catch (Exception ex)
-            {
-                Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-            }
+        public async Task<CategoryDto> Get(string name)
+            => await _categoryService.GetAsync(name);
 
-            Request.CreateResponse(HttpStatusCode.OK);
-        }
+        public async Task Post([FromBody]CreateCategory command)
+            => await _commandDispatcher.DispatchAsync(command);
     }
 }
