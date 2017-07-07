@@ -17,10 +17,11 @@ namespace FollowMe.Api.Controllers
     {
         private ICategoryService _categoryService;
         
-        public CategoriesController()
+        public CategoriesController(ICategoryService categoryService)
         {
-            var _categoryRepo = new InMemoryCategoryRepo();
-            _categoryService = new CategoryService(_categoryRepo);
+            _categoryService = categoryService;
+            //var _categoryRepo = new InMemoryCategoryRepo();
+            //_categoryService = new CategoryService(_categoryRepo);
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
