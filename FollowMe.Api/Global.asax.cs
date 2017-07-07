@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.WebApi;
 using FollowMe.Core.Repositories;
+using FollowMe.Infrastructure.IoC.Modules;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
 using Newtonsoft.Json;
@@ -30,6 +31,7 @@ namespace FollowMe.Api
             builder.RegisterType<InMemoryCategoryRepo>().As<ICategoryRepository>();
             var config = GlobalConfiguration.Configuration;
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<CommandModule>();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

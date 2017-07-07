@@ -16,10 +16,11 @@ namespace FollowMe.Infrastructure.Handlers.Categories
     {
         private ICategoryService _categoryService;
 
-        public CreateCategoryHandler()
+        public CreateCategoryHandler(ICategoryService categoryService)
         {
-            var _categoryRepo = new InMemoryCategoryRepo();
-            _categoryService = new CategoryService(_categoryRepo);
+            //var _categoryRepo = new InMemoryCategoryRepo();
+            //_categoryService = new CategoryService(_categoryRepo);
+            _categoryService = categoryService;
 
         }
 
