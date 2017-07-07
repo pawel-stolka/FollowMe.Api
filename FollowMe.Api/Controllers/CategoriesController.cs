@@ -23,18 +23,15 @@ namespace FollowMe.Api.Controllers
         {
             _categoryService = categoryService;
             _commandDispatcher = commandDispatcher;
-            // this is registered in autofac configuration in Global.asax
-            //var _categoryRepo = new InMemoryCategoryRepo();
-            //_categoryService = new CategoryService(_categoryRepo);
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
             => await _categoryService.GetAllAsync();
 
+        public async Task<CategoryDto> Get(string name)
+            => await _categoryService.GetAsync(name);
+
         public async Task Post([FromBody]CreateCategory command)
-        {
-            await _commandDispatcher.DispatchAsync(command);
-            //await _categoryService.RegisterAsync(command.Name, command.Description);
-        }
+            => await _commandDispatcher.DispatchAsync(command);
     }
 }
