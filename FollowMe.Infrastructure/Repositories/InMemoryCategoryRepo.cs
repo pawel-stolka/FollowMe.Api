@@ -23,7 +23,7 @@ namespace FollowMe.Infrastructure.Repositories
             => await Task.FromResult(_categories.SingleOrDefault(x => x.Id == id));
 
         public async Task<ICategory> GetAsync(string name)
-            => await Task.FromResult(_categories.SingleOrDefault(x => x.Name == name));
+            => await Task.FromResult(_categories.SingleOrDefault(x => x.Name.ToLower() == name));
 
 
         public async Task<IEnumerable<ICategory>> GetAllAsync()

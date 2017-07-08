@@ -25,12 +25,15 @@ namespace FollowMe.Api.Controllers
             _commandDispatcher = commandDispatcher;
         }
 
+        [HttpGet]
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
             => await _categoryService.GetAllAsync();
 
+        [HttpGet]
         public async Task<CategoryDto> Get(string name)
             => await _categoryService.GetAsync(name);
 
+        [HttpPost]
         public async Task Post([FromBody]CreateCategory command)
             => await _commandDispatcher.DispatchAsync(command);
     }

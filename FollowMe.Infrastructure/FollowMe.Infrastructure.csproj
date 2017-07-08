@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Category\ChangeCategoryDescription.cs" />
     <Compile Include="Commands\Category\CreateCategory.cs" />
     <Compile Include="Commands\CommandDispatcher.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="DTO\CategoryDto.cs" />
     <Compile Include="DTO\PointDto.cs" />
     <Compile Include="DTO\SessionDto.cs" />
+    <Compile Include="Handlers\Categories\ChangeCategoryHandler.cs" />
     <Compile Include="Handlers\Categories\CreateCategoryHandler.cs" />
     <Compile Include="IoC\Modules\CommandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

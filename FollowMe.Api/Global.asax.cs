@@ -12,6 +12,7 @@ using FollowMe.Infrastructure.IoC.Modules;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace FollowMe.Api
 {
@@ -20,6 +21,11 @@ namespace FollowMe.Api
         protected void Application_Start()
         {
             ConfigureAutofac();
+            //GlobalConfiguration.Configuration
+            //    .Formatters
+            //    .JsonFormatter
+            //    .SerializerSettings
+            //    .ContractResolver = new CamelCasePropertyNamesContractResolver();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             ConfigureJsonOutput();
         }
