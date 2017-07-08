@@ -10,7 +10,7 @@ namespace FollowMe.Infrastructure.Repositories
 {
     public class InMemorySessionRepo : ISessionRepository
     {
-        private static List<ICategory> _categories = new List<ICategory>
+        private static List<Category> _categories = new List<Category>
         {
             new Category("Bieganie", "Treningi i zawody"),
             new Category("Spacer", "Luźnym krokiem..."),
@@ -39,28 +39,26 @@ namespace FollowMe.Infrastructure.Repositories
                 );
         }
 
-        public ISession Get(Guid id)
-            => _sessions.SingleOrDefault(s => s.Id == id);
+        public async Task<ISession> GetAsync(Guid id)
+            => await Task.FromResult(_sessions.SingleOrDefault(s => s.Id == id));
 
-        public IEnumerable<ISession> Get(DateTime date)
-            => _sessions.Where(s => s.StartTime.Date == date);
+        public async Task<IEnumerable<ISession>> GetAsync(DateTime date)
+            => await Task.FromResult(_sessions.Where(s => s.StartTime.Date == date));
 
-        public IEnumerable<ISession> GetAll()
-            => _sessions;
+        public async Task<IEnumerable<ISession>> GetAllAsync()
+            => await Task.FromResult(_sessions);
 
-        public void Add(ISession session)
-        {
-            _sessions.Add(session);
-        }
+        public async Task AddAsync(ISession session)
+            => await Task.FromResult(_sessions.Add(session));
 
-        public void Update(ISession session)
+        public async Task UpdateAsync(ISession session)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Guid id)
+        public async Task RemoveAsync(Guid id)
         {
-            var session = Get(id);
+            var session = await GetAsync(id);
             _sessions.Remove(session);
         }
     }

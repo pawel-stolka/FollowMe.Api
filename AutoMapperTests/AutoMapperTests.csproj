@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{961F6722-785A-4833-8B50-18A26BA2997B}</ProjectGuid>
+    <ProjectGuid>{ED3137C7-391A-42B2-B6DF-22719EC6BD74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CoreTests</RootNamespace>
-    <AssemblyName>CoreTests</AssemblyName>
+    <RootNamespace>AutoMapperTests</RootNamespace>
+    <AssemblyName>AutoMapperTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,17 +54,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CategoryTest.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FollowMe.Core\FollowMe.Core.csproj">
-      <Project>{5eee8c17-d779-460e-95e2-92327d9c6063}</Project>
-      <Name>FollowMe.Core</Name>
-    </ProjectReference>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\FollowMe.Api\FollowMe.Api.csproj">
+      <Project>{2649DCC8-98D7-4E85-8E4F-0F8E5953F2E9}</Project>
+      <Name>FollowMe.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FollowMe.Core\FollowMe.Core.csproj">
+      <Project>{5EEE8C17-D779-460E-95E2-92327D9C6063}</Project>
+      <Name>FollowMe.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FollowMe.Infrastructure\FollowMe.Infrastructure.csproj">
+      <Project>{3431962D-73CF-445A-A48C-540FE3B8FD24}</Project>
+      <Name>FollowMe.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

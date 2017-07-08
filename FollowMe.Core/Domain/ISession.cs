@@ -9,7 +9,7 @@ namespace FollowMe.Core.Domain
     public interface ISession
     {
         Guid Id { get; set; }
-        ICategory Category { get; set; }
+        Category Category { get; set; }
         DateTime StartTime { get; set; }
         DateTime FinishTime { get; set; }
         string Note { get; set; }

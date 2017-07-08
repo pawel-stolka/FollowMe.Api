@@ -18,20 +18,20 @@ namespace FollowMe.Api
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { controller = "categories", id = RouteParameter.Optional }
+                routeTemplate: "{api}/{controller}/{id}",
+                defaults: new { api = "api", controller = "categories", id = RouteParameter.Optional }
             );
 
             config.Routes.MapHttpRoute(
                 name: "ApiByAction",
                 routeTemplate: "api/{controller}/{action}",
-                defaults: new { action = "Get" }
+                defaults: new { api = "api", controller = "categories", action = "Get" }
             );
 
             config.Routes.MapHttpRoute(
-                name: "ApiByName",
-                routeTemplate: "api/{controller}/{action}/{name}",
-                defaults: null
+                name: "ApiByDateTime",
+                routeTemplate: "api/{controller}/{action}/{name}/{datetime}",
+                defaults: new { api = "api", controller = "session", action = "get", datetime = RouteParameter.Optional }
                 //constraints: new { name = @"^[a-z] + $"}
             );
         }

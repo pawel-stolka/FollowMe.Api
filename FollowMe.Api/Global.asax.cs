@@ -9,6 +9,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using FollowMe.Core.Repositories;
 using FollowMe.Infrastructure.IoC.Modules;
+using FollowMe.Infrastructure.Mappers;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
 using Newtonsoft.Json;
@@ -20,12 +21,8 @@ namespace FollowMe.Api
     {
         protected void Application_Start()
         {
+            //AutoMapperConfig.Initialize();
             ConfigureAutofac();
-            //GlobalConfiguration.Configuration
-            //    .Formatters
-            //    .JsonFormatter
-            //    .SerializerSettings
-            //    .ContractResolver = new CamelCasePropertyNamesContractResolver();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             ConfigureJsonOutput();
         }
@@ -35,6 +32,8 @@ namespace FollowMe.Api
             var builder = new ContainerBuilder();
             builder.RegisterType<CategoryService>().As<ICategoryService>();
             builder.RegisterType<InMemoryCategoryRepo>().As<ICategoryRepository>();
+            builder.RegisterType<SessionService>().As<ISessionService>();
+            builder.RegisterType<InMemorySessionRepo>().As<ISessionRepository>();
             var config = GlobalConfiguration.Configuration;
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterModule<CommandModule>();
@@ -45,6 +44,7 @@ namespace FollowMe.Api
             using (var scope = container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<ICategoryService>();
+                var service2 = scope.Resolve<ISessionService>();
             }
         }
 

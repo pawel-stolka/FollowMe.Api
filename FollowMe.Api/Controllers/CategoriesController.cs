@@ -19,14 +19,15 @@ namespace FollowMe.Api.Controllers
         private readonly ICategoryService _categoryService;
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public CategoriesController(ICategoryService categoryService, ICommandDispatcher commandDispatcher)
+        public CategoriesController(ICategoryService categoryService, 
+            ICommandDispatcher commandDispatcher)
         {
             _categoryService = categoryService;
             _commandDispatcher = commandDispatcher;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
+        public async Task<IEnumerable<CategoryDto>> Get()
             => await _categoryService.GetAllAsync();
 
         [HttpGet]

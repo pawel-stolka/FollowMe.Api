@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using FollowMe.Core.Domain;
 using FollowMe.Core.Repositories;
 using FollowMe.Infrastructure.DTO;
@@ -29,29 +30,22 @@ namespace FollowMe.Infrastructure.Services
         public async Task<CategoryDto> GetAsync(string name)
         {
             var category = await _categoryRepository.GetAsync(name);
+
             return new CategoryDto
             {
                 Id = category.Id,
                 Name = category.Name,
                 Description = category.Description
             };
+            //return Mapper.Map<ICategory, CategoryDto>(category);
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
         {
             var _categories = await _categoryRepository.GetAllAsync();
 
-            //foreach (var category in _categories)
-            //{
-            //    ret.Add(
-            //        new CategoryDto
-            //        {
-            //            Id = category.Id,
-            //            Name = category.Name,
-            //            Description = category.Description
-            //        });
-            //}
-            //return ret;
+            //return Mapper
+            //    .Map<IEnumerable<ICategory>, IEnumerable<CategoryDto>>(_categories);
 
             return _categories.Select(category => new CategoryDto
             {
@@ -70,10 +64,6 @@ namespace FollowMe.Infrastructure.Services
             }
 
             category = new Category(name, description);
-            //logger.Log(LogLevel.Info, "RegisterAsync =>    Category:");
-            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Id: " + category.Id);
-            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Name: " + category.Name);
-            //logger.Log(LogLevel.Info, "RegisterAsync =>      - Description: " + category.Description);
             await  _categoryRepository.AddAsync(category);
         }
     }

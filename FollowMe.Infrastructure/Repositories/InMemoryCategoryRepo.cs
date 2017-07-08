@@ -9,7 +9,7 @@ namespace FollowMe.Infrastructure.Repositories
 {
     public class InMemoryCategoryRepo : ICategoryRepository
     {
-        private static ISet<ICategory> _categories = new HashSet<ICategory>
+        private static ISet<Category> _categories = new HashSet<Category>
         {
             new Category("Bieganie", "Treningi i zawody"),
             new Category("Spacer", "Luźnym krokiem..."),
@@ -18,29 +18,29 @@ namespace FollowMe.Infrastructure.Repositories
             new Category("Inne", "Pozostała aktywność")
         };
 
-        public async Task<ICategory> GetAsync(Guid id)
+        public async Task<Category> GetAsync(Guid id)
             //=> _categories.SingleOrDefault(x => x.Id == id);
             => await Task.FromResult(_categories.SingleOrDefault(x => x.Id == id));
 
-        public async Task<ICategory> GetAsync(string name)
+        public async Task<Category> GetAsync(string name)
             => await Task.FromResult(_categories.SingleOrDefault(x => x.Name.ToLower() == name));
 
 
-        public async Task<IEnumerable<ICategory>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync()
             => await Task.FromResult(_categories);
 
-        public async Task AddAsync(ICategory category)
+        public async Task AddAsync(Category category)
         {
              await Task.FromResult(_categories.Add(category));
         }
 
-        public async Task UpdateAsync(ICategory category)
+        public async Task UpdateAsync(Category category)
         {
-            //if (_categories.Contains(category))
-            //{
-            //    var _category = Get(category.Id);
-            //
-            //}
+            if (_categories.Contains(category))
+            {
+                var _category = GetAsync(category.Id);
+
+            }
             throw new NotImplementedException("todo...");
         }
 

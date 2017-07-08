@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using FollowMe.Core.Repositories;
 using FollowMe.Infrastructure.Repositories;
 using FollowMe.Infrastructure.Services;
@@ -14,10 +15,10 @@ namespace InfrastructureTests
         private readonly ICategoryService categoryService;
         private ICategoryRepository repository;
 
-        public CategoryRepoTest()
+        public CategoryRepoTest()//IMapper mapper)
         {
             repository = new InMemoryCategoryRepo();
-            categoryService = new CategoryService(repository);
+            categoryService = new CategoryService(repository); //, mapper);
         }
 
         [TestMethod]
@@ -27,7 +28,7 @@ namespace InfrastructureTests
             var expected = "Luźnym krokiem...";
 
             // Act
-            var run = await categoryService.GetAsync("Spacer");
+            var run = await categoryService.GetAsync("spacer");
 
             // Assert
             Assert.AreEqual(expected, run.Description);

@@ -9,11 +9,11 @@ namespace FollowMe.Core.Repositories
 {
     public interface ISessionRepository
     {
-        ISession Get(Guid id);
-        IEnumerable<ISession> Get(DateTime date);
-        IEnumerable<ISession> GetAll();
-        void Add(ISession session);
-        void Update(ISession session);
-        void Remove(Guid id);
+        Task<ISession> GetAsync(Guid id);
+        Task<IEnumerable<ISession>> GetAsync(DateTime date);
+        Task<IEnumerable<ISession>> GetAllAsync();
+        Task AddAsync(ISession session);
+        Task UpdateAsync(ISession session);
+        Task RemoveAsync(Guid id);
     }
 }

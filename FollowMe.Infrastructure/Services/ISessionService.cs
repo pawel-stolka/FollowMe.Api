@@ -10,9 +10,10 @@ namespace FollowMe.Infrastructure.Services
 {
     public interface ISessionService
     {
-        SessionDto Get(Guid id);
-        IEnumerable<SessionDto> Get(DateTime date);
-        void Register(Category category, DateTime startTime, DateTime finishTime,
+        Task<IEnumerable<SessionDto>> GetAllAsync();
+        Task<SessionDto> GetAsync(Guid id);
+        Task<IEnumerable<SessionDto>> GetAsync(DateTime date);
+        Task RegisterAsync(Category category, DateTime startTime, DateTime finishTime,
             string note, ISet<IPoint> gpsPoints);
     }
 }

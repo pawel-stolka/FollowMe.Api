@@ -9,11 +9,11 @@ namespace FollowMe.Core.Repositories
 {
     public interface ICategoryRepository
     {
-        Task<ICategory> GetAsync(Guid id);
-        Task<ICategory> GetAsync(string name);
-        Task<IEnumerable<ICategory>> GetAllAsync();
-        Task AddAsync(ICategory category);
-        Task UpdateAsync(ICategory category);
+        Task<Category> GetAsync(Guid id);
+        Task<Category> GetAsync(string name);
+        Task<IEnumerable<Category>> GetAllAsync();
+        Task AddAsync(Category category);
+        Task UpdateAsync(Category category);
         Task RemoveAsync(Guid id);
     }
 }

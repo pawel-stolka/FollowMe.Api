@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using FollowMe.Core.Domain;
 using FollowMe.Core.Repositories;
@@ -11,50 +13,92 @@ namespace FollowMe.Infrastructure.Services
     {
         private readonly ISessionRepository _sessionRepository;
 
-        public SessionService(ISessionRepository sessionRepository)
+        public SessionService(ISessionRepository sessionRepository)//, IMapper mapper)
         {
             _sessionRepository = sessionRepository;
-            Mapper.Initialize(cfg => {
-                cfg.CreateMap<Category, CategoryDto>();
-                cfg.CreateMap<Point, PointDto>();
-                cfg.CreateMap<Session, SessionDto>();
-            });
         }
 
-        public SessionDto Get(Guid id)
+        public async Task<IEnumerable<SessionDto>> GetAllAsync()
         {
-            var session = _sessionRepository.Get(id);
-            var categoryDto = Mapper.Map<CategoryDto>(session.Category);
-            var pointsDto = Mapper.Map<IEnumerable<PointDto>>(session.GpsPoints);
+            var sessions = await _sessionRepository.GetAllAsync();
+
+            //var sessionsDto 
+
+            var sessionDto = sessions.Select(session =>
+                new SessionDto
+                {
+                    Id = session.Id,
+                    Category = new CategoryDto
+                    {
+                        Id = session.Category.Id,
+                        Name = session.Category.Name,
+                        Description = session.Category.Description
+                    },
+                    StartTime = session.StartTime,
+                    FinishTime = session.FinishTime,
+                    GpsPoints = session.GpsPoints.Select(point => new PointDto
+                    {
+                        Id = point.Id,
+                        DateTime = point.DateTime,
+                        Latitude = point.Latitude,
+                        Longitude = point.Longitude,
+                        Altitude = point.Altitude,
+                        Distance = point.Distance
+                    }).ToList(),
+                    Note = session.Note
+                });
+
+            return sessionDto;
+        }
+
+        public async Task<SessionDto> GetAsync(Guid id)
+        {
+            var session = await _sessionRepository.GetAsync(id);
+            // It doesnt work, at least throug AutoFac !!!
+            //var categoryDto = Mapper.Map<CategoryDto>(session.Category);
+            //var pointsDto = Mapper.Map<IEnumerable<PointDto>>(session.GpsPoints);
 
             return new SessionDto
             {
                 Id = session.Id,
-                Category = categoryDto,
+                Category = new CategoryDto
+                {
+                    Id = session.Category.Id,
+                    Name = session.Category.Name,
+                    Description = session.Category.Description
+                },
                 StartTime = session.StartTime,
                 FinishTime = session.FinishTime,
-                GpsPoints = pointsDto,
+                GpsPoints = session.GpsPoints.Select(point => new PointDto
+                {
+                    Id = point.Id,
+                    DateTime = point.DateTime,
+                    Latitude = point.Latitude,
+                    Longitude = point.Longitude,
+                    Altitude = point.Altitude,
+                    Distance = point.Distance
+                }).ToList(),
                 Note = session.Note
             };
         }
 
-        public IEnumerable<SessionDto> Get(DateTime date)
+        public async Task<IEnumerable<SessionDto>> GetAsync(DateTime date)
         {
-            var sessions = _sessionRepository.Get(date.Date);
+            var sessions = await _sessionRepository.GetAsync(date.Date);
             var list = new List<SessionDto>();
             foreach (var session in sessions)
             {
                 list.Add(
-                    Get(session.Id));
+                    await GetAsync(session.Id));
             }
 
             return list;
         }
 
-        public void Register(Category category, DateTime startTime, DateTime finishTime, string note, ISet<IPoint> gpsPoints)
+        public async Task RegisterAsync(Category category, DateTime startTime, DateTime finishTime, string note, ISet<IPoint> gpsPoints)
         {
             var session = new Session(category, startTime, finishTime, gpsPoints);
-            _sessionRepository.Add(session);
+            await _sessionRepository.AddAsync(session);
         }
     }
 }
