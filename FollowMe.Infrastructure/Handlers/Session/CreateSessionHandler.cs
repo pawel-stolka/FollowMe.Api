@@ -20,12 +20,9 @@ namespace FollowMe.Infrastructure.Handlers.Session
 
         public async Task HandleAsync(CreateSession command)
         {
-            //await _sessionService
-            //    .RegisterAsync()
             await _sessionService
                 .RegisterAsync(command.Category, command.StartTime, command.FinishTime,
-                    command.Note, command.GpsPoints);
-            //throw new NotImplementedException();
+                    command.GpsPoints, command.Note);
         }
     }
 }

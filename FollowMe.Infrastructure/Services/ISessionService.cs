@@ -14,6 +14,6 @@ namespace FollowMe.Infrastructure.Services
         Task<SessionDto> GetAsync(Guid id);
         Task<IEnumerable<SessionDto>> GetAsync(DateTime date);
         Task RegisterAsync(Category category, DateTime startTime, DateTime finishTime,
-            string note, ISet<IPoint> gpsPoints);
+            IEnumerable<IPoint> gpsPoints, string note);
     }
 }

@@ -22,9 +22,46 @@ namespace FollowMe.Infrastructure.Services
         {
             var sessions = await _sessionRepository.GetAllAsync();
 
-            //var sessionsDto 
-
-            var sessionDto = sessions.Select(session =>
+            #region 1. foreach => longer approach
+            //var sessionDtoList =  new List<SessionDto>();
+            //var gpsPoints = new List<PointDto>();
+            //foreach (var session in sessions)
+            //{
+            //    foreach (var point in session.GpsPoints)
+            //    {
+            //        var pointDto = new PointDto
+            //        {
+            //            Id = point.Id,
+            //            DateTime = point.DateTime,
+            //            Latitude = point.Latitude,
+            //            Longitude = point.Longitude,
+            //            Altitude = point.Altitude,
+            //            Distance = point.Distance
+            //        };
+            //        gpsPoints.Add(pointDto);
+            //    }
+            //}
+            //foreach (var session in sessions)
+            //{
+            //    var sessionDto = new SessionDto
+            //    {
+            //        Id = session.Id,
+            //        Category = new CategoryDto
+            //        {
+            //            Id = session.Category.Id,
+            //            Name = session.Category.Name,
+            //            Description = session.Category.Description
+            //        },
+            //        StartTime = session.StartTime,
+            //        FinishTime = session.FinishTime,
+            //        Note = session.Note,
+            //        GpsPoints = Mapper
+            //            .Map<IEnumerable<IPoint>, IEnumerable<PointDto>>(session.GpsPoints)
+            //    };
+            //    sessionDtoList.Add(sessionDto);
+            //}
+            #endregion
+            var sessionDtoList = sessions.Select(session =>
                 new SessionDto
                 {
                     Id = session.Id,
@@ -38,7 +75,6 @@ namespace FollowMe.Infrastructure.Services
                     FinishTime = session.FinishTime,
                     GpsPoints = session.GpsPoints.Select(point => new PointDto
                     {
-                        Id = point.Id,
                         DateTime = point.DateTime,
                         Latitude = point.Latitude,
                         Longitude = point.Longitude,
@@ -48,7 +84,7 @@ namespace FollowMe.Infrastructure.Services
                     Note = session.Note
                 });
 
-            return sessionDto;
+            return sessionDtoList;
         }
 
         public async Task<SessionDto> GetAsync(Guid id)
@@ -71,7 +107,6 @@ namespace FollowMe.Infrastructure.Services
                 FinishTime = session.FinishTime,
                 GpsPoints = session.GpsPoints.Select(point => new PointDto
                 {
-                    Id = point.Id,
                     DateTime = point.DateTime,
                     Latitude = point.Latitude,
                     Longitude = point.Longitude,
@@ -95,7 +130,7 @@ namespace FollowMe.Infrastructure.Services
             return list;
         }
 
-        public async Task RegisterAsync(Category category, DateTime startTime, DateTime finishTime, string note, ISet<IPoint> gpsPoints)
+        public async Task RegisterAsync(Category category, DateTime startTime, DateTime finishTime, IEnumerable<IPoint> gpsPoints, string note)
         {
             var session = new Session(category, startTime, finishTime, gpsPoints);
             await _sessionRepository.AddAsync(session);

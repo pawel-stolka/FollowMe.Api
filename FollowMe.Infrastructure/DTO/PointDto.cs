@@ -4,7 +4,6 @@ namespace FollowMe.Infrastructure.DTO
 {
     public class PointDto
     {
-        public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

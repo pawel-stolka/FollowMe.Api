@@ -18,6 +18,7 @@ namespace FollowMe.Infrastructure.Mappers
                 cfg.CreateMap<Point, PointDto>();
                 cfg.CreateMap<Session, SessionDto>();
                 cfg.CreateMap<IEnumerable<Category>, IEnumerable<CategoryDto>>();
+                cfg.CreateMap<IEnumerable<IPoint>, IEnumerable<PointDto>>();
             })
             .CreateMapper();
     }

@@ -19,8 +19,8 @@ namespace FollowMe.Core.Domain
             Category = category;
             StartTime = startTime;
             FinishTime = finishTime;
-            Note = note;
             GpsPoints = gpsPoints;
+            Note = note;
         }
     }
 }
