@@ -4,7 +4,6 @@ using AutoMapper;
 using FollowMe.Core.Domain;
 using FollowMe.Infrastructure.DTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Category = FollowMe.Api.Models.Category;
 
 namespace AutoMapperTests
 {
@@ -14,12 +13,12 @@ namespace AutoMapperTests
         [TestMethod]
         public void TestMethod1()
         {
-            Mapper.Initialize((Action<IMapperConfigurationExpression>)(cfg =>
+            Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Category, CategoryDto>();
-                cfg.CreateMap<FollowMe.Core.Domain.Category, CategoryDto>();
-                cfg.CreateMap<IEnumerable<FollowMe.Core.Domain.Category>, IEnumerable<CategoryDto>>();
-            }));
+                cfg.CreateMap<Category, CategoryDto>();
+                cfg.CreateMap<IEnumerable<Category>, IEnumerable<CategoryDto>>();
+            });
 
             Mapper.AssertConfigurationIsValid();
 
